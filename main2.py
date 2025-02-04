@@ -32,15 +32,21 @@ def show_post(index):
 
 @app.route("/contact", methods =['GET', 'POST'])
 def receive_data():
-    name = request.form['name']
-    email = request.form['email']
-    phone = request.form['phone']
-    message = request.form['message']
-    print(name,"\n",email,"\n",phone,"\n",message)
+    
     if request.method == 'POST':
-        return render_template('message.html', h1 = "Successfully sent your message. POST")
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        message = request.form['message']
+        print(name,"\n",email,"\n",phone,"\n",message)
+        return render_template('contact.html', h1 = "Successfully sent your message. POST")
     elif request.method == 'GET':
-        return render_template('message.html', h1 = "Successfully sent your message. GET")
+        name = request.args.get['name']
+        email = request.args.get['email']
+        phone = request.args.get['phone']
+        message = request.args.get['message']
+        print(name,"\n",email,"\n",phone,"\n",message)
+        return render_template('contact.html', h1 = "Successfully sent your message. GET")
 
 
 if __name__ == "__main__":
