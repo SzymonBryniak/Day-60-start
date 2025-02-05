@@ -40,11 +40,13 @@ def receive_data():
         message = request.form['message']
         print(name,"\n",email,"\n",phone,"\n",message)
         return render_template('contact.html', h1 = "Successfully sent your message. POST")
-    elif request.method == 'GET':
-        name = request.args.get['name']
-        email = request.args.get['email']
-        phone = request.args.get['phone']
-        message = request.args.get['message']
+    
+    else:
+        print(request.view_args.values())
+        name = request.args.get('name')
+        email = request.args.get('email')
+        phone = request.args.get('phone')
+        message = request.args.get('message')
         print(name,"\n",email,"\n",phone,"\n",message)
         return render_template('contact.html', h1 = "Successfully sent your message. GET")
 
