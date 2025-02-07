@@ -14,12 +14,7 @@ def get_all_posts():
 @app.route("/about")
 def about():
     return render_template("about.html")
-
-
-@app.route("/contact")
-def contact():
-    return render_template("contact.html")
-
+     
 
 @app.route("/post/<int:index>")
 def show_post(index):
@@ -31,9 +26,19 @@ def show_post(index):
 
 
 @app.route("/contact", methods =['GET', 'POST'])
-def receive_data():
-    
-    if request.method == 'POST':
+def contact():
+    print(f"Request Method: {request.method}")  
+
+    if request.method == "GET":
+        print("Handling GET request...")
+        print(request.args.get('name'))
+        name = request.args.get('name')
+        email = request.args.get('email')
+        phone = request.args.get('phone')
+        message = request.args.get('message')
+        print(name,"\n",email,"\n",phone,"\n",message)
+        return render_template('contact.html', h1 = "Successfully sent your message. GET")
+    elif request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
         phone = request.form['phone']
@@ -41,14 +46,8 @@ def receive_data():
         print(name,"\n",email,"\n",phone,"\n",message)
         return render_template('contact.html', h1 = "Successfully sent your message. POST")
     
-    else:
-        print(request.view_args.values())
-        name = request.args.get('name')
-        email = request.args.get('email')
-        phone = request.args.get('phone')
-        message = request.args.get('message')
-        print(name,"\n",email,"\n",phone,"\n",message)
-        return render_template('contact.html', h1 = "Successfully sent your message. GET")
+
+    return render_template("contact.html")
 
 
 if __name__ == "__main__":
